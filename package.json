@@ -10,14 +10,11 @@
     "build:ui": "rm -rf build && cd ../frontend && npm run build && cp -r build ../backend",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
   },
-  "repository": {
-    "type": "git",
-    "url": "part3"
-  },
   "author": "ghita loukili",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mongoose": "^7.4.1",
     "morgan": "^1.10.0"
