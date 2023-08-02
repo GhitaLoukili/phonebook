@@ -4,7 +4,7 @@ import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import Notification from './components/Notification'
 import Error from './components/Error'
-import personService from './services/person'
+import personService from './services/persons'
 
 
 const App = () => {
@@ -26,7 +26,7 @@ const App = () => {
       })
       .catch(error => {
         console.error('Error fetching data:', error);
-        setPersons([]); // Set to an empty array in case of an error
+        setPersons([]);
         setFilteredPersons([]);
         setLoading(false);
       });
