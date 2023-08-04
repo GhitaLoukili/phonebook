@@ -32,6 +32,20 @@ const App = () => {
       });
     }, [])
 
+  const handleNameChange=(event)=>{
+    setNewName(event.target.value)
+  }
+  
+  const handleNumberChange=(event)=>{
+    setNewNumber(event.target.value)
+  }
+
+  const handleFilter=(event)=> {
+    event.preventDefault()
+    const result=persons.filter(person=>person.name.toLowerCase().includes(event.target.value.toLowerCase()))
+    setFilteredPersons(result)
+  }
+
 
   const addPerson=(event)=> {
     event.preventDefault()
@@ -52,7 +66,7 @@ const App = () => {
         }, 5000)
       })
       .catch(error=>{
-        setErrorMessage('Error adding a new person')
+        setErrorMessage(error.response.data.error)
         setTimeout(() => {
           setErrorMessage(null)
         }, 5000)
@@ -83,17 +97,6 @@ const App = () => {
         }, 5000)
       })
     }}
-
-
-  const handleNameChange=(event)=>{
-    console.log(event.target.value)
-    setNewName(event.target.value)
-  }
-
-  const handleNumberChange=(event)=>{
-    console.log(event.target.value)
-    setNewNumber(event.target.value)
-  }
 
   const checkPerson=(event)=> {
     event.preventDefault()
@@ -127,7 +130,7 @@ const App = () => {
             setFilteredPersons(filteredPersons.filter(person => person.id !== personToAdd.id));
           } else {
             // Other types of errors
-            setErrorMessage("Error updating the number.");
+            setErrorMessage(error.response.data.error);
           }
           setTimeout(() => {
             setErrorMessage(null);
@@ -141,13 +144,6 @@ const App = () => {
     }
   }
 
-  const searchName=(event)=> {
-    event.preventDefault()
-    const searchName=event.target.value
-    const result=persons.filter(person=>person.name.toLowerCase().includes(searchName.toLowerCase()))
-    setFilteredPersons(result)
-  }
-
   return (
     <div>
       <h2>Phonebook</h2>
@@ -155,7 +151,7 @@ const App = () => {
       {errorMessage && <Error message={errorMessage} />}   
       {!loading ? (
         <>
-          <Filter onChange={searchName} />
+          <Filter onChange={handleFilter} />
           <h2>add a new</h2>
           <PersonForm
             addPerson={addPerson}
